@@ -1,3 +1,4 @@
+import {authenticate} from '@loopback/authentication';
 import {
   Count,
   CountSchema,
@@ -7,13 +8,13 @@ import {
   Where,
 } from '@loopback/repository';
 import {
-  post,
-  param,
+  del,
   get,
   getModelSchemaRef,
+  param,
   patch,
+  post,
   put,
-  del,
   requestBody,
   response,
 } from '@loopback/rest';
@@ -23,9 +24,10 @@ import {ProspectoRepository} from '../repositories';
 export class ProspectoController {
   constructor(
     @repository(ProspectoRepository)
-    public prospectoRepository : ProspectoRepository,
+    public prospectoRepository: ProspectoRepository,
   ) {}
 
+  @authenticate('cliente')
   @post('/prospectos')
   @response(200, {
     description: 'Prospecto model instance',
@@ -58,6 +60,7 @@ export class ProspectoController {
     return this.prospectoRepository.count(where);
   }
 
+  @authenticate('cliente')
   @get('/prospectos')
   @response(200, {
     description: 'Array of Prospecto model instances',
@@ -95,6 +98,7 @@ export class ProspectoController {
     return this.prospectoRepository.updateAll(prospecto, where);
   }
 
+  @authenticate('cliente')
   @get('/prospectos/{id}')
   @response(200, {
     description: 'Prospecto model instance',
@@ -106,7 +110,8 @@ export class ProspectoController {
   })
   async findById(
     @param.path.string('id') id: string,
-    @param.filter(Prospecto, {exclude: 'where'}) filter?: FilterExcludingWhere<Prospecto>
+    @param.filter(Prospecto, {exclude: 'where'})
+    filter?: FilterExcludingWhere<Prospecto>,
   ): Promise<Prospecto> {
     return this.prospectoRepository.findById(id, filter);
   }
@@ -129,6 +134,7 @@ export class ProspectoController {
     await this.prospectoRepository.updateById(id, prospecto);
   }
 
+  @authenticate('cliente')
   @put('/prospectos/{id}')
   @response(204, {
     description: 'Prospecto PUT success',

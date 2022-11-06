@@ -1,3 +1,4 @@
+import {authenticate} from '@loopback/authentication';
 import {
   Count,
   CountSchema,
@@ -7,23 +8,24 @@ import {
   Where,
 } from '@loopback/repository';
 import {
-  post,
-  param,
+  del,
   get,
   getModelSchemaRef,
+  param,
   patch,
+  post,
   put,
-  del,
   requestBody,
   response,
 } from '@loopback/rest';
 import {Sucursal} from '../models';
 import {SucursalRepository} from '../repositories';
 
+@authenticate('admin')
 export class SucursalController {
   constructor(
     @repository(SucursalRepository)
-    public sucursalRepository : SucursalRepository,
+    public sucursalRepository: SucursalRepository,
   ) {}
 
   @post('/sucursales')
@@ -52,9 +54,7 @@ export class SucursalController {
     description: 'Sucursal model count',
     content: {'application/json': {schema: CountSchema}},
   })
-  async count(
-    @param.where(Sucursal) where?: Where<Sucursal>,
-  ): Promise<Count> {
+  async count(@param.where(Sucursal) where?: Where<Sucursal>): Promise<Count> {
     return this.sucursalRepository.count(where);
   }
 
@@ -106,7 +106,8 @@ export class SucursalController {
   })
   async findById(
     @param.path.string('id') id: string,
-    @param.filter(Sucursal, {exclude: 'where'}) filter?: FilterExcludingWhere<Sucursal>
+    @param.filter(Sucursal, {exclude: 'where'})
+    filter?: FilterExcludingWhere<Sucursal>,
   ): Promise<Sucursal> {
     return this.sucursalRepository.findById(id, filter);
   }

@@ -19,13 +19,13 @@ export class Prospecto extends Entity {
     type: 'string',
     required: true,
   })
-  direccion: string;
+  apellido: string;
 
   @property({
     type: 'string',
     required: true,
   })
-  email: string;
+  correo: string;
 
   @property({
     type: 'string',
@@ -33,6 +33,11 @@ export class Prospecto extends Entity {
   })
   celular: string;
 
+  @property({
+    type: 'string',
+    required: true,
+  })
+  comentario: string;
 
   constructor(data?: Partial<Prospecto>) {
     super(data);

@@ -19,6 +19,12 @@ export class ProductoServicio extends Entity {
     type: 'string',
     required: true,
   })
+  nombre: string;
+
+  @property({
+    type: 'string',
+    required: true,
+  })
   descripcion: string;
 
   @property({
@@ -26,7 +32,6 @@ export class ProductoServicio extends Entity {
     required: true,
   })
   precio: number;
-
 
   constructor(data?: Partial<ProductoServicio>) {
     super(data);
@@ -37,4 +42,5 @@ export interface ProductoServicioRelations {
   // describe navigational properties here
 }
 
-export type ProductoServicioWithRelations = ProductoServicio & ProductoServicioRelations;
+export type ProductoServicioWithRelations = ProductoServicio &
+  ProductoServicioRelations;

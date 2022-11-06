@@ -1,4 +1,4 @@
-import {Entity, model, property, belongsTo} from '@loopback/repository';
+import {belongsTo, Entity, model, property} from '@loopback/repository';
 import {Plan} from './plan.model';
 import {Usuario} from './usuario.model';
 
@@ -21,37 +21,25 @@ export class Mascota extends Entity {
     type: 'string',
     required: true,
   })
+  foto: string;
+
+  @property({
+    type: 'string',
+    required: true,
+  })
+  estado: string;
+
+  @property({
+    type: 'string',
+    required: true,
+  })
   especie: string;
 
   @property({
     type: 'string',
     required: true,
   })
-  raza: string;
-
-  @property({
-    type: 'string',
-    required: true,
-  })
-  color: string;
-
-  @property({
-    type: 'string',
-    required: true,
-  })
-  sexo: string;
-
-  @property({
-    type: 'date',
-    required: true,
-  })
-  fecha_nacimiento: string;
-
-  @property({
-    type: 'string',
-    required: true,
-  })
-  imagen: string;
+  comentario: string;
 
   @belongsTo(() => Plan)
   planId: string;

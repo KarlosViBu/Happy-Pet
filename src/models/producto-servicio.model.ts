@@ -28,6 +28,12 @@ export class ProductoServicio extends Entity {
   descripcion: string;
 
   @property({
+    type: 'string',
+    required: true,
+  })
+  foto: string;
+
+  @property({
     type: 'number',
     required: true,
   })

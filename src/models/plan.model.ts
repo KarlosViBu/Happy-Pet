@@ -1,4 +1,4 @@
-import {Entity, model, property, hasMany} from '@loopback/repository';
+import {Entity, hasMany, model, property} from '@loopback/repository';
 import {Mascota} from './mascota.model';
 
 @model()
@@ -14,13 +14,7 @@ export class Plan extends Entity {
     type: 'string',
     required: true,
   })
-  cobertura: string;
-
-  @property({
-    type: 'string',
-    required: true,
-  })
-  categoria: string;
+  nombre: string;
 
   @property({
     type: 'number',

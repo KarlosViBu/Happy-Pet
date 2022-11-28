@@ -35,6 +35,12 @@ export class Prospecto extends Entity {
 
   @property({
     type: 'string',
+    required: false,
+  })
+  estado: string;
+
+  @property({
+    type: 'string',
     required: true,
   })
   comentario: string;

@@ -1,4 +1,3 @@
-import {authenticate} from '@loopback/authentication';
 import {
   Count,
   CountSchema,
@@ -27,7 +26,7 @@ export class PlanController {
     public planRepository: PlanRepository,
   ) {}
 
-  @authenticate('admin')
+  // @authenticate('admin')
   @post('/planes')
   @response(200, {
     description: 'Plan model instance',
@@ -109,7 +108,7 @@ export class PlanController {
     return this.planRepository.findById(id, filter);
   }
 
-  @authenticate('admin')
+  // @authenticate('admin')
   @patch('/planes/{id}')
   @response(204, {
     description: 'Plan PATCH success',
@@ -128,7 +127,7 @@ export class PlanController {
     await this.planRepository.updateById(id, plan);
   }
 
-  @authenticate('admin')
+  // @authenticate('admin')
   @put('/planes/{id}')
   @response(204, {
     description: 'Plan PUT success',
@@ -140,7 +139,7 @@ export class PlanController {
     await this.planRepository.replaceById(id, plan);
   }
 
-  @authenticate('admin')
+  // @authenticate('admin')
   @del('/planes/{id}')
   @response(204, {
     description: 'Plan DELETE success',

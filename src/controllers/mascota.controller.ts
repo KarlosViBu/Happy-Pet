@@ -1,3 +1,4 @@
+import {service} from '@loopback/core';
 import {
   Count,
   CountSchema,
@@ -7,24 +8,60 @@ import {
   Where,
 } from '@loopback/repository';
 import {
-  post,
-  param,
+  del,
   get,
   getModelSchemaRef,
+  param,
   patch,
+  post,
   put,
-  del,
   requestBody,
   response,
 } from '@loopback/rest';
 import {Mascota} from '../models';
 import {MascotaRepository} from '../repositories';
+import {MascotaService} from './../services/mascota.service';
 
 export class MascotaController {
   constructor(
     @repository(MascotaRepository)
-    public mascotaRepository : MascotaRepository,
+    public mascotaRepository: MascotaRepository,
+    @service(MascotaService)
+    public mascotaService: MascotaService,
   ) {}
+
+  @get('/mascotas-xEstado/{estado}')
+  @response(200, {
+    description:
+      'Genera la lista de Mascotas Aprobadas, Pendientes o Rechazadas ',
+    content: {
+      'application/json': {
+        schema: {
+          type: 'array',
+          items: getModelSchemaRef(Mascota, {includeRelations: true}),
+        },
+      },
+    },
+  })
+  async mascotxEstado(@param.path.string('estado') kestado: string) {
+    return this.mascotaService.getMascotaxEstado(kestado);
+  }
+
+  // @get('/mascotas-aprobadas')
+  // @response(200, {
+  //   description: 'Genera la lista de Mascotas Aprobadas',
+  //   content: {
+  //     'application/json': {
+  //       schema: {
+  //         type: 'array',
+  //         items: getModelSchemaRef(Mascota, {includeRelations: true}),
+  //       },
+  //     },
+  //   },
+  // })
+  // async mascotAprobadaServicio() {
+  //   return this.mascotaService.getMascotasAprobadas();
+  // }
 
   @post('/mascotas')
   @response(200, {
@@ -52,9 +89,7 @@ export class MascotaController {
     description: 'Mascota model count',
     content: {'application/json': {schema: CountSchema}},
   })
-  async count(
-    @param.where(Mascota) where?: Where<Mascota>,
-  ): Promise<Count> {
+  async count(@param.where(Mascota) where?: Where<Mascota>): Promise<Count> {
     return this.mascotaRepository.count(where);
   }
 
@@ -106,7 +141,8 @@ export class MascotaController {
   })
   async findById(
     @param.path.string('id') id: string,
-    @param.filter(Mascota, {exclude: 'where'}) filter?: FilterExcludingWhere<Mascota>
+    @param.filter(Mascota, {exclude: 'where'})
+    filter?: FilterExcludingWhere<Mascota>,
   ): Promise<Mascota> {
     return this.mascotaRepository.findById(id, filter);
   }

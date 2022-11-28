@@ -100,6 +100,22 @@ export class UsuarioController {
     //YA CON LO ANTERIOR SE CORRE LA APP (ejecutando npm start en la terminal) y luego probando la funcionalidad con Postman
   }
 
+  @get('usuarios-xRol/{rol}')
+  @response(200, {
+    description: 'Genera el listado de usuarios segun el rol dado',
+    content: {
+      'application/json': {
+        schema: {
+          type: 'array',
+          items: getModelSchemaRef(Usuario, {includeRelations: true}),
+        },
+      },
+    },
+  })
+  async usuariosxRol(@param.path.string('rol') krol: string) {
+    return this.servicioAutenticacion.getUsuarioxRol(krol);
+  }
+
   @get('/usuarios/count')
   @response(200, {
     description: 'Usuario model count',

@@ -21,7 +21,7 @@ import {
 import {Sucursal} from '../models';
 import {SucursalRepository} from '../repositories';
 
-@authenticate('admin')
+// @authenticate('admin')
 export class SucursalController {
   constructor(
     @repository(SucursalRepository)
@@ -95,6 +95,7 @@ export class SucursalController {
     return this.sucursalRepository.updateAll(sucursal, where);
   }
 
+  @authenticate.skip()
   @get('/sucursales/{id}')
   @response(200, {
     description: 'Sucursal model instance',

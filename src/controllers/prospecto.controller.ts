@@ -1,4 +1,3 @@
-import {authenticate} from '@loopback/authentication';
 import {
   Count,
   CountSchema,
@@ -27,7 +26,7 @@ export class ProspectoController {
     public prospectoRepository: ProspectoRepository,
   ) {}
 
-  @authenticate('cliente')
+  // @authenticate('cliente')
   @post('/prospectos')
   @response(200, {
     description: 'Prospecto model instance',
@@ -60,7 +59,7 @@ export class ProspectoController {
     return this.prospectoRepository.count(where);
   }
 
-  @authenticate('cliente')
+  // @authenticate('cliente')
   @get('/prospectos')
   @response(200, {
     description: 'Array of Prospecto model instances',
@@ -98,7 +97,7 @@ export class ProspectoController {
     return this.prospectoRepository.updateAll(prospecto, where);
   }
 
-  @authenticate('cliente')
+  // @authenticate('cliente')
   @get('/prospectos/{id}')
   @response(200, {
     description: 'Prospecto model instance',
@@ -134,7 +133,7 @@ export class ProspectoController {
     await this.prospectoRepository.updateById(id, prospecto);
   }
 
-  @authenticate('cliente')
+  // @authenticate('cliente')
   @put('/prospectos/{id}')
   @response(204, {
     description: 'Prospecto PUT success',

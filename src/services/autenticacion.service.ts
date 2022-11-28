@@ -32,7 +32,7 @@ export class AutenticacionService {
     }
   }
 
-  // Jason Web Token
+  // Json Web Token
   GenerarTokenJWT(usuario: Usuario) {
     let token = jwt.sign(
       {
@@ -56,4 +56,11 @@ export class AutenticacionService {
       return false;
     }
   }
+
+  getUsuarioxRol = (krol: string) => {
+    let usuariosxRol = this.usuarioRepository.find({
+      where: {rol: krol},
+    });
+    return usuariosxRol;
+  };
 }

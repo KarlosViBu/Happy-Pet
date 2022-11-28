@@ -13,7 +13,13 @@ export class Sucursal extends Entity {
     type: 'string',
     required: true,
   })
-  departamento: string;
+  direccion: string;
+
+  @property({
+    type: 'string',
+    required: true,
+  })
+  telefono: string;
 
   @property({
     type: 'string',
@@ -25,13 +31,7 @@ export class Sucursal extends Entity {
     type: 'string',
     required: true,
   })
-  direccion: string;
-
-  @property({
-    type: 'string',
-    required: true,
-  })
-  telefono: string;
+  departamento: string;
 
   constructor(data?: Partial<Sucursal>) {
     super(data);
